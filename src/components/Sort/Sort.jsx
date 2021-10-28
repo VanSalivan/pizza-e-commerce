@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const Sort = ({ items }) => {
   const [visiblePopup, setVisiblePopup] = useState(false);
-  const [activeItem, setActiveItem] = useState(items[0]);
+  const [activeItem, setActiveItem] = useState(items[0].name);
 
   const sortRef = useRef();
 
   const toggleVisiblePopup = () => setVisiblePopup(!visiblePopup);
-  
+
   const handleActiveItem = (name) => {
     setActiveItem(name);
     setVisiblePopup(false);
@@ -44,13 +44,13 @@ const Sort = ({ items }) => {
       {visiblePopup && (
         <div className='sort__popup'>
           <ul>
-            {items.map((sortCategory) => (
+            {items.map((obj) => (
               <li
-                className={activeItem === sortCategory ? 'active' : 'null'}
-                onClick={() => handleActiveItem(sortCategory)}
-                key={sortCategory}
+                className={activeItem === obj.name ? 'active' : 'null'}
+                onClick={() => handleActiveItem(obj.name)}
+                key={obj.name}
               >
-                {sortCategory}
+                {obj.name}
               </li>
             ))}
           </ul>
