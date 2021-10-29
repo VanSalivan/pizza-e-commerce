@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { setSortCategory } from '../../redux/actions/filters';
 
 const Categories = ({ items = [] }) => {
-  const [activeCategory, setActiveCategory] = useState(null);
+  const activeCategory = useSelector((state) => state.filter.category);
+  const dispatch = useDispatch();
 
-  const handleActiveCategory = (name) => setActiveCategory(name);
+  const onSelectCategory = (name) => {
+    dispatch(setSortCategory(name));
+  };
 
   return (
     <div className='categories'>
       <ul>
         <li
           className={activeCategory === null ? 'active' : ''}
-          onClick={() => handleActiveCategory(null)}
+          onClick={() => onSelectCategory(null)}
         >
           Все
         </li>
         {items.map((category) => (
           <li
             className={activeCategory === category ? 'active' : 'null'}
-            onClick={() => handleActiveCategory(category)}
+            onClick={() => onSelectCategory(category)}
             key={category}
           >
             {category}
