@@ -1,8 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllPizzas } from '../services/pizzas';
 
 import Categories from '../components/Categories';
-import PizzaItem  from '../components/PizzaItem';
+import PizzaItem from '../components/PizzaItem';
+import PizzaItemSkeleton from '../components/PizzaItemSkeleton';
 import Sort from '../components/Sort';
 
 const categories = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
@@ -13,7 +15,20 @@ const sort = [
 ];
 
 const Home = () => {
-  const { pizzas } = useSelector((state) => state.pizzas);
+  const { pizzas, loading } = useSelector((state) => state.pizzas);
+  const dispatch = useDispatch();
+
+  const pizzasSkeletons = Array.from({ length: 8 }).map((item, index) => (
+    <PizzaItemSkeleton key={index} />
+  ));
+
+  useEffect(() => {
+    if (!pizzas.length) {
+      dispatch(getAllPizzas());
+    }
+
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className='container'>
@@ -23,10 +38,11 @@ const Home = () => {
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
-        {pizzas &&
-          pizzas.map((pizza) => {
-            return <PizzaItem key={pizza.id} {...pizza} />;
-          })}
+        {loading
+          ? pizzasSkeletons
+          : pizzas.map((pizza) => {
+              return <PizzaItem key={pizza.id} {...pizza} />;
+            })}
       </div>
     </div>
   );
