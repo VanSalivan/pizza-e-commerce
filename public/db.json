@@ -6,7 +6,7 @@
       "types": [0, 1],
       "sizes": [26, 30, 40],
       "price": 803,
-      "category": 0,
+      "category": "Мясные",
       "rating": 4
     },
     {
@@ -16,7 +16,7 @@
       "types": [0],
       "sizes": [26, 40],
       "price": 245,
-      "category": 1,
+      "category": "Вегетарианская",
       "rating": 6
     },
     {
@@ -26,7 +26,7 @@
       "types": [0],
       "sizes": [26, 40],
       "price": 295,
-      "category": 1,
+      "category": "Гриль",
       "rating": 4
     },
     {
@@ -36,7 +36,7 @@
       "types": [1],
       "sizes": [26, 30, 40],
       "price": 275,
-      "category": 2,
+      "category": "Гриль",
       "rating": 2
     },
     {
@@ -46,7 +46,7 @@
       "types": [0, 1],
       "sizes": [26, 30, 40],
       "price": 415,
-      "category": 3,
+      "category": "Острые",
       "rating": 8
     },
     {
@@ -56,7 +56,7 @@
       "types": [0],
       "sizes": [30, 40],
       "price": 580,
-      "category": 2,
+      "category": "Гриль",
       "rating": 2
     },
     {
@@ -66,7 +66,7 @@
       "types": [0, 1],
       "sizes": [26, 30, 40],
       "price": 675,
-      "category": 1,
+      "category": "Гриль",
       "rating": 9
     },
     {
@@ -76,7 +76,7 @@
       "types": [0, 1],
       "sizes": [26, 30, 40],
       "price": 450,
-      "category": 4,
+      "category": "Вегетарианская",
       "rating": 10
     },
     {
@@ -86,7 +86,7 @@
       "types": [0, 1],
       "sizes": [26, 30, 40],
       "price": 395,
-      "category": 5,
+      "category": "Закрытые",
       "rating": 10
     },
     {
@@ -96,7 +96,7 @@
       "types": [0, 1],
       "sizes": [26, 30, 40],
       "price": 285,
-      "category": 5,
+      "category": "Вегетарианская",
       "rating": 7
     }
   ]

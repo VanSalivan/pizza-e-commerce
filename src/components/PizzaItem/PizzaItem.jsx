@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-const PizzaItem = ({ category, imageUrl, name, price, rating, sizes, types }) => {
+const PizzaItem = ({ imageUrl, name, price, sizes, types }) => {
   const availableTypes = ['тонкое', 'традиционное'];
   const availableSizes = [26, 30, 40];
 
   const [activeType, setActiveType] = useState(types[0]);
-  const [activeSize, setActiveSize] = useState(types[0]);
+  const [activeSize, setActiveSize] = useState(sizes[0]);
 
   const onSelectType = (index) => setActiveType(index);
   const onSelectSize = (index) => setActiveSize(index);
@@ -39,10 +39,10 @@ const PizzaItem = ({ category, imageUrl, name, price, rating, sizes, types }) =>
               <li
                 key={index}
                 className={classNames({
-                  active: activeSize === index,
+                  active: activeSize === size,
                   disabled: !sizes.includes(size),
                 })}
-                onClick={() => onSelectSize(index)}
+                onClick={() => onSelectSize(size)}
               >
                 {size} см.
               </li>

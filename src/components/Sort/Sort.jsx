@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setSortBy } from '../../redux/actions/filters';
 
 const Sort = ({ items }) => {
-  const [visiblePopup, setVisiblePopup] = useState(false);
-  const [activeItem, setActiveItem] = useState(items[0].name);
-
   const sortRef = useRef();
+  const dispatch = useDispatch();
+  const { sortBy } = useSelector((state) => state.filter);
 
+  const [visiblePopup, setVisiblePopup] = useState(false);
   const toggleVisiblePopup = () => setVisiblePopup(!visiblePopup);
 
-  const handleActiveItem = (name) => {
-    setActiveItem(name);
+  const onSelectSortType = (name) => {
     setVisiblePopup(false);
+    dispatch(setSortBy(name));
   };
 
   const handleOutsideClick = (e) => {
@@ -39,15 +42,15 @@ const Sort = ({ items }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={toggleVisiblePopup}>{activeItem}</span>
+        <span onClick={toggleVisiblePopup}>{sortBy.name}</span>
       </div>
       {visiblePopup && (
         <div className='sort__popup'>
           <ul>
             {items.map((obj) => (
               <li
-                className={activeItem === obj.name ? 'active' : 'null'}
-                onClick={() => handleActiveItem(obj.name)}
+                className={sortBy.name === obj.name ? 'active' : 'null'}
+                onClick={() => onSelectSortType(obj)}
                 key={obj.name}
               >
                 {obj.name}

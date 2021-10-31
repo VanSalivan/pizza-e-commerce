@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllPizzas } from '../services/pizzas';
+
+import { getFilteredPizzas } from '../services/pizzas';
 
 import Categories from '../components/Categories';
 import PizzaItem from '../components/PizzaItem';
@@ -9,26 +10,25 @@ import Sort from '../components/Sort';
 
 const categories = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 const sort = [
-  { name: 'популярности', type: 'popular' },
-  { name: 'цена', type: 'price' },
-  { name: 'алфавиту', type: 'alphabet' },
+  { name: 'популярности', type: 'popular', order: 'desc' },
+  { name: 'цена', type: 'price', order: 'desc' },
+  { name: 'алфавиту', type: 'name', order: 'asc' },
 ];
 
 const Home = () => {
-  const { pizzas, loading } = useSelector((state) => state.pizzas);
   const dispatch = useDispatch();
+  const { pizzas, loading } = useSelector((state) => state.pizzas);
+  const { category, sortBy } = useSelector((state) => state.filter);
 
   const pizzasSkeletons = Array.from({ length: 8 }).map((item, index) => (
     <PizzaItemSkeleton key={index} />
   ));
 
   useEffect(() => {
-    if (!pizzas.length) {
-      dispatch(getAllPizzas());
-    }
+    dispatch(getFilteredPizzas(category, sortBy));
 
     // eslint-disable-next-line
-  }, []);
+  }, [category, sortBy]);
 
   return (
     <div className='container'>
