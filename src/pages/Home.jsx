@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getFilteredPizzas } from '../services/pizzas';
-
 import Categories from '../components/Categories';
 import PizzaItem from '../components/PizzaItem';
 import PizzaItemSkeleton from '../components/PizzaItemSkeleton';
 import Sort from '../components/Sort';
+
+import { getFilteredPizzas } from '../services/pizzas';
+
+import { addPizzaToCart } from '../redux/actions/cart';
 
 const categories = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 const sort = [
@@ -19,6 +21,11 @@ const Home = () => {
   const dispatch = useDispatch();
   const { pizzas, loading } = useSelector((state) => state.pizzas);
   const { category, sortBy } = useSelector((state) => state.filter);
+  const cartItems = useSelector((state) => state.cart.items);
+
+  const handleAddPizzaToCart = (pizzaObj) => {
+    dispatch(addPizzaToCart(pizzaObj));
+  };
 
   const pizzasSkeletons = Array.from({ length: 8 }).map((item, index) => (
     <PizzaItemSkeleton key={index} />
@@ -41,7 +48,16 @@ const Home = () => {
         {loading
           ? pizzasSkeletons
           : pizzas.map((pizza) => {
-              return <PizzaItem key={pizza.id} {...pizza} />;
+              return (
+                <PizzaItem
+                  key={pizza.id}
+                  countInTheCart={
+                    cartItems[pizza.name] && cartItems[pizza.name].length
+                  }
+                  handleAddPizzaToCart={handleAddPizzaToCart}
+                  {...pizza}
+                />
+              );
             })}
       </div>
     </div>

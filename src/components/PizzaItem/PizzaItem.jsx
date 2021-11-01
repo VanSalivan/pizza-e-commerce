@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
-const PizzaItem = ({ imageUrl, name, price, sizes, types }) => {
+import Button from '../Button';
+
+const PizzaItem = ({ id, imageUrl, name, price, sizes, types, handleAddPizzaToCart, countInTheCart}) => {
   const availableTypes = ['тонкое', 'традиционное'];
   const availableSizes = [26, 30, 40];
 
@@ -11,47 +13,55 @@ const PizzaItem = ({ imageUrl, name, price, sizes, types }) => {
   const onSelectType = (index) => setActiveType(index);
   const onSelectSize = (index) => setActiveSize(index);
 
+  const addPizza = () => {
+    const pizzaObj = {
+      id,
+      name,
+      imageUrl,
+      price,
+      size: activeSize,
+      type: availableTypes[activeType],
+    };
+    handleAddPizzaToCart(pizzaObj);
+  };
+
   return (
     <div className='pizza-block'>
-      <img
-        className='pizza-block__image'
-        src={imageUrl}
-        alt={name}
-      />
+      <img className='pizza-block__image' src={imageUrl} alt={name} />
       <h4 className='pizza-block__title'>{name}</h4>
       <div className='pizza-block__selector'>
         <ul>
-          {availableTypes.map((item, index) =>
+          {availableTypes.map((item, index) => (
             <li
               key={index}
               className={classNames({
-                'active': activeType === index,
-                'disabled': !types.includes(index)
+                active: activeType === index,
+                disabled: !types.includes(index),
               })}
               onClick={() => onSelectType(index)}
             >
               {item}
             </li>
-          )}
+          ))}
         </ul>
         <ul>
           {availableSizes.map((size, index) => (
-              <li
-                key={index}
-                className={classNames({
-                  active: activeSize === size,
-                  disabled: !sizes.includes(size),
-                })}
-                onClick={() => onSelectSize(size)}
-              >
-                {size} см.
-              </li>
-            ))}
+            <li
+              key={index}
+              className={classNames({
+                active: activeSize === size,
+                disabled: !sizes.includes(size),
+              })}
+              onClick={() => onSelectSize(size)}
+            >
+              {size} см.
+            </li>
+          ))}
         </ul>
       </div>
       <div className='pizza-block__bottom'>
         <div className='pizza-block__price'>от {price} ₽</div>
-        <div className='button button--outline button--add'>
+        <Button className='button--add' outline onClick={addPizza}>
           <svg
             width='12'
             height='12'
@@ -65,8 +75,8 @@ const PizzaItem = ({ imageUrl, name, price, sizes, types }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
-        </div>
+          { countInTheCart ? <i>{countInTheCart}</i> : null }
+        </Button>
       </div>
     </div>
   );
