@@ -86,6 +86,9 @@ body {
     display: flex;
     align-items: center;
     cursor: pointer;
+    border: none;
+    background-color: inherit;
+    
     @include noselect();
 
     span {
