@@ -1,9 +1,10 @@
-## Pizza-shop # [demo]()
+## Pizza-shop # [посмотреть](https://pizza-e-commerce.herokuapp.com/)
 
 Тренировочный проект для работы с нативным иммутабельным Редаксом.
 *Адаптив отсутствует.
 
 ![Screenshot](example.png)
+*Деплой сервера находиться на Heroku
 
 Технологии: `React / Redux / react-router-dom / json-server / SCSS`
 
